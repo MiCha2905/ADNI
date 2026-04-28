@@ -1,10 +1,17 @@
 # Longitudinal Alzheimer's Disease Conversion Prediction
 
+<img width="1247" height="641" alt="Image_Transformation" src="https://github.com/user-attachments/assets/fe4438cd-0962-477b-8623-9308fa7f93e1" />
+
+
 This repository contains a State-of-the-Art (SOTA) machine learning pipeline designed to predict the conversion from Mild Cognitive Impairment (MCI) to Alzheimer's Disease (AD) using longitudinal structural MRI data.
 
 Rather than relying on static, single-timepoint snapshots of the brain, this pipeline calculates the **annualized velocity of neurodegeneration** to identify patients on an aggressive disease trajectory.
 
 ## 📊 Final SOTA Metrics (MCI Conversion Prediction)
+
+<img width="542" height="446" alt="SOOTA_confusion_matrix" src="https://github.com/user-attachments/assets/9d3b77fa-1de3-47eb-9f1e-c09660cc94b5" />
+
+
 Using Leave-One-Out Cross-Validation (LOOCV) on a multi-modal feature set, the final predictive model achieved:
 - **Accuracy:** `94.7%`
 - **Precision:** `96.4%`
@@ -19,24 +26,53 @@ Using Leave-One-Out Cross-Validation (LOOCV) on a multi-modal feature set, the f
 The project was executed in four distinct phases:
 
 ### Phase 1: Longitudinal Velocity Extraction
+
+<img width="832" height="388" alt="BeforeAndAfter" src="https://github.com/user-attachments/assets/548de18d-8c2d-4c7a-9647-a295c4bff162" />
+
+
 Static brain volumes (e.g., small hippocampus) are confounded by "Cognitive Reserve" (some patients naturally have smaller brains). We shifted the paradigm to **Velocity**.
+
+<img width="1401" height="515" alt="hippocampus_Literal_Ventricles_overAge" src="https://github.com/user-attachments/assets/7e6d4c94-a696-4b56-8687-9f753b946722" />
+
+
 - Extracted exact dates from FastSurfer DICOM tags.
 - Calculated the annualized rate of atrophy `(Volume_T2 - Volume_T1) / Years` for 96 distinct brain regions.
 - **Discovery**: Atrophy *velocity* perfectly separated Cognitively Normal (CN) subjects from AD subjects, proving it is a superior biological marker.
 
+<img width="1527" height="533" alt="Change_in_velocity" src="https://github.com/user-attachments/assets/4f831a2f-f950-481b-b454-21c5d630ed19" />
+
+
 ### Phase 2: Unsupervised Trajectory Inference
 Mild Cognitive Impairment (MCI) is highly ambiguous—some stay stable, others convert to AD rapidly.
+
+<img width="1013" height="752" alt="t-sne" src="https://github.com/user-attachments/assets/061cff4e-1d20-4b53-92e1-b3368e9c30d4" />
+
+
 - Trained a robust Random Forest Classifier exclusively on the extreme phenotypes (CN vs. AD) using brain velocities.
 - Applied this model to the MCI cohort to perform "Zero-Shot Inference".
 - The model successfully stratified MCI patients into **Low Risk** (slow decay) and **High Risk** (decaying at the exact speed of full-blown AD).
 
+<img width="797" height="540" alt="CriticalRegion" src="https://github.com/user-attachments/assets/2b9fe28d-e950-49e2-8e60-fdb49837f14a" />
+
+
 ### Phase 3: External Clinical Validation & Survival Analysis
 To prove the AI's "High Risk" predictions were accurate, we cross-referenced them against the ADNI `DXSUM` dataset, which contains 10-year ground-truth clinical diagnoses.
+
+<img width="732" height="540" alt="AI_Prediction-v s-True_Results" src="https://github.com/user-attachments/assets/784927a4-8b9a-4044-860b-7d302216a18b" />
+
+
 - Performed **Kaplan-Meier Survival Analysis** comparing the Low Risk and High Risk cohorts.
 - **Result**: 100% of the patients the AI flagged as "High Risk" based on their 1-year brain velocity eventually developed full-blown dementia (Positive Predictive Value = 1.0).
 
+<img width="747" height="553" alt="Kapman-Meier" src="https://github.com/user-attachments/assets/6bcd4d81-17ee-4b0e-bfcb-0f87b497f052" />
+
+
 ### Phase 4: SOTA Multi-Modal Classification
 To push the pipeline to publication-tier metrics (>80% Accuracy), we built a direct classifier for the MCI cohort.
+
+<img width="737" height="538" alt="MCI_Conversion" src="https://github.com/user-attachments/assets/e286c6d5-6046-4e46-8ea7-964dc0dc35bf" />
+
+
 1. **Feature Enrichment**: Combined Baseline Absolute Volumes (Cognitive Reserve) + Annualized Velocity (Atrophy Rate) + Demographics (Age/Sex).
 2. **Recursive Feature Elimination (RFE)**: Isolated the top 10 most critical biological markers out of 194 noisy features to prevent the curse of dimensionality.
 3. **LOOCV Validation**: Trained a strictly regularized Logistic Regression using Leave-One-Out Cross-Validation to guarantee unbiased, rigorous testing on small medical cohorts.
