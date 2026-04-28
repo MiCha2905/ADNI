@@ -2,7 +2,7 @@
 
 **Sonali**
 *Independent Researcher*
-author@example.com
+k2905gupta@gmail.com
 
 ---
 
@@ -68,25 +68,29 @@ A strict, L2-regularized Logistic Regression classifier was trained on the top 1
 ### 4.1 Longitudinal Velocity as a Discriminative Biomarker
 To validate the hypothesis that the rate of structural change is more discriminative than baseline static volume, we analyzed the annualized velocity across the entire cohort. As shown in **Figure 1**, the velocity of neurodegeneration perfectly separated the extreme phenotypes (Cognitively Normal vs. Alzheimer's Disease), whereas baseline cognitive reserve showed significant overlap.
 
-![Distribution of annualized atrophy velocity across clinical groups. The rate of change effectively separates healthy subjects from those with active Alzheimer's Disease.](Change_in_velocity.png)
+![Distribution of annualized atrophy velocity across clinical groups. The rate of change effectively separates healthy subjects from those with active Alzheimer's Disease.]<img width="1527" height="533" alt="Change_in_velocity" src="https://github.com/user-attachments/assets/67ac8eb5-96c2-4c97-8c6c-c978ae5ed0f0" />
+
 *Figure 1: Distribution of annualized atrophy velocity across clinical groups.*
 
 ### 4.2 Unsupervised Risk Stratification and Feature Importance
 A Random Forest classifier trained on the CN vs. AD phenotypes was utilized to perform Zero-Shot inference on the ambiguous MCI cohort. This unsupervised stratification successfully segmented the MCI patients into a "Low Risk" group and a "High Risk" group. The top predictive features driving this stratification, identified by Gini impurity, heavily favored bilateral temporal and parietal lobe velocities, aligning with established AD pathology (**Figure 2**).
 
-![Feature Importance Plot. Bilateral temporal regions and ventricular expansion velocity dominated the decision trees.](CriticalRegion.png)
+![Feature Importance Plot. Bilateral temporal regions and ventricular expansion velocity dominated the decision trees.]<img width="797" height="540" alt="CriticalRegion" src="https://github.com/user-attachments/assets/0577dba9-c621-408e-bcf5-5a7228765c88" />
+
 *Figure 2: Feature Importance Plot.*
 
 ### 4.3 Survival Analysis and Clinical Validation
 To rigorously validate the unsupervised risk stratification, Kaplan-Meier survival analysis was performed using 10-year ground-truth clinical data. As shown in **Figure 3**, the survival curves demonstrated a profound divergence. Notably, 100% of the patients flagged as "High Risk" by the AI pipeline based solely on their 1-year brain velocity eventually converted to full clinical dementia (Positive Predictive Value = 1.0).
 
-![Kaplan-Meier Survival Curves. The High-Risk MCI group demonstrates a 100% conversion rate to AD over the tracking period, validating the velocity biomarkers.](Kapman-Meier.png)
+![Kaplan-Meier Survival Curves. The High-Risk MCI group demonstrates a 100% conversion rate to AD over the tracking period, validating the velocity biomarkers.]<img width="747" height="553" alt="Kapman-Meier" src="https://github.com/user-attachments/assets/f1b4a7d8-78ce-41e8-be41-0b08a4deaa69" />
+
 *Figure 3: Kaplan-Meier Survival Curves.*
 
 ### 4.4 State-of-the-Art Multi-Modal Prediction
 The final supervised model was trained to predict MCI-to-AD conversion directly, utilizing the top 10 biomarkers isolated via RFE (integrating baseline volume, demographic data, and velocity). Evaluated under strict Leave-One-Out Cross-Validation (LOOCV), the pipeline achieved an overall accuracy of 94.7% (**Figure 4**). The precision and recall for predicting AD conversion were both 96.4%, yielding an F1-Score of 96.4% and an ROC-AUC of 0.961.
 
-![Confusion Matrix of the SOTA Multi-Modal Classifier evaluated using LOOCV.](SOOTA_confusion_matrix.png)
+![Confusion Matrix of the SOTA Multi-Modal Classifier evaluated using LOOCV.]<img width="542" height="446" alt="SOOTA_confusion_matrix" src="https://github.com/user-attachments/assets/2d250d6b-edb2-4440-9e73-9fbbc15aad70" />
+
 *Figure 4: Confusion Matrix of the SOTA Multi-Modal Classifier evaluated using LOOCV.*
 
 **Table 1:** Comparison of the proposed model against State-of-the-Art (SOTA) literature for MCI-to-AD conversion prediction.
