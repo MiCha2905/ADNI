@@ -44,9 +44,9 @@ graph TD
     J --> K[Leave-One-Out Cross Validation LOOCV]
     K --> L((MCI to AD Conversion Prediction))
     
-    classDef main fill:#f9f9f9,stroke:#333,stroke-width:2px;
-    classDef process fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px;
+    classDef main fill:#e0f7fa,stroke:#006064,stroke-width:2px,color:#000000;
+    classDef process fill:#ffe0b2,stroke:#e65100,stroke-width:2px,color:#000000;
+    classDef output fill:#c8e6c9,stroke:#1b5e20,stroke-width:3px,color:#000000;
     
     class A,B,F main;
     class C,D,E,G,H,I,J,K process;
