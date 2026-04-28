@@ -29,6 +29,30 @@ To address these limitations, we propose a paradigm shift from static volumetric
 
 In this paper, we present a multi-modal machine learning pipeline that integrates baseline cognitive reserve, clinical demographics, and annualized atrophy velocity. Utilizing Recursive Feature Elimination (RFE) and rigorous Leave-One-Out Cross-Validation (LOOCV), we demonstrate that tracking temporal velocity allows for the highly accurate, non-invasive prediction of MCI-to-AD conversion, bypassing the need for invasive testing.
 
+**Figure 1: Architectural Flowchart of the Proposed SOTA Prediction Pipeline.**
+```mermaid
+graph TD
+    A[Baseline Structural MRI] --> C[FastSurfer Whole-Brain Segmentation]
+    B[Follow-up Structural MRI] --> C
+    C --> D[Extraction of 96 Absolute Volumes]
+    D --> E{Annualized Longitudinal Velocity Calculation}
+    F[Clinical Demographics: Age, Sex] --> G
+    E --> G[Multi-Modal Feature Fusion: 194 Features]
+    G --> H[Recursive Feature Elimination RFE]
+    H --> I[Top 10 Stable Biomarkers]
+    I --> J[L2-Regularized Logistic Regression]
+    J --> K[Leave-One-Out Cross Validation LOOCV]
+    K --> L((MCI to AD Conversion Prediction))
+    
+    classDef main fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef process fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef output fill:#e8f5e9,stroke:#2e7d32,stroke-width:3px;
+    
+    class A,B,F main;
+    class C,D,E,G,H,I,J,K process;
+    class L output;
+```
+
 ## 2. Related Work
 The prediction of MCI-to-AD conversion has been extensively studied, with existing literature largely divided into three methodological paradigms:
 
